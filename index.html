@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Naeema TN — Data Analytics Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0E1420;
+    --panel:#161D2E;
+    --panel-2:#1B2438;
+    --line:#26304A;
+    --amber:#E8A33D;
+    --teal:#4FBDB0;
+    --paper:#EDEFF3;
+    --mute:#8A93A8;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:64px 64px;
+    background-attachment:fixed;
+    background-position:center;
+  }
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background:radial-gradient(ellipse 80% 50% at 50% 0%, rgba(14,20,32,0.2), var(--ink) 75%);
+    pointer-events:none; z-index:0;
+  }
+  .wrap{max-width:1040px; margin:0 auto; padding:0 28px; position:relative; z-index:1;}
+
+  .mono{font-family:'JetBrains Mono', monospace;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--teal); font-weight:500;
+  }
+  h1,h2,h3{font-family:'Space Grotesk', sans-serif; font-weight:700; letter-spacing:-0.01em;}
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:10;
+    background:rgba(14,20,32,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; padding-top:16px; padding-bottom:16px;}
+  .brand{font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:16px; color:var(--paper); text-decoration:none;}
+  .brand span{color:var(--amber);}
+  .nav-links{display:flex; gap:24px; list-style:none;}
+  .nav-links a{color:var(--mute); text-decoration:none; font-size:14px; font-weight:500; transition:color .2s ease; cursor:pointer; position:relative; padding-bottom:2px;}
+  .nav-links a::after{content:""; position:absolute; left:0; bottom:0; width:0; height:1.5px; background:var(--teal); transition:width .2s ease;}
+  .nav-links a:hover{color:var(--paper);}
+  .nav-links a:hover::after{width:100%;}
+  .brand{cursor:pointer;}
+
+  /* HERO */
+  header.hero{padding:88px 0 56px;}
+  .hero-eyebrow{margin-bottom:20px; display:flex; align-items:center; gap:10px;}
+  .hero-eyebrow::before{content:""; width:8px; height:8px; background:var(--amber); border-radius:50%; box-shadow:0 0 12px var(--amber); flex-shrink:0;}
+  h1.name{font-size:56px; line-height:1.05; margin-bottom:14px;}
+  h1.name .role{display:block; font-size:24px; font-weight:500; color:var(--mute); margin-top:10px; font-family:'Inter', sans-serif; letter-spacing:0;}
+  .hero p.lede{max-width:600px; color:var(--mute); font-size:17px; margin-top:18px;}
+  .hero-cta{display:flex; gap:14px; margin-top:32px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:11px 20px; border-radius:6px; font-size:14px; font-weight:600;
+    text-decoration:none; transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease, color .18s ease, opacity .18s ease;
+    font-family:'Inter', sans-serif; cursor:pointer;
+  }
+  .btn-primary{background:var(--amber); color:#1A1206;}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 24px rgba(232,163,61,0.3); opacity:0.94;}
+  .btn-primary:active{transform:translateY(0); box-shadow:0 4px 10px rgba(232,163,61,0.2);}
+  .btn-ghost{border:1px solid var(--line); color:var(--paper);}
+  .btn-ghost:hover{border-color:var(--teal); color:var(--teal); transform:translateY(-2px); box-shadow:0 10px 24px rgba(79,189,176,0.15);}
+  .btn-ghost:active{transform:translateY(0); box-shadow:none;}
+
+  /* KPI STRIP */
+  .kpi-section{padding:8px 0 64px;}
+  .kpi-label{font-size:12px; color:var(--mute); margin-bottom:14px; font-family:'JetBrains Mono', monospace; letter-spacing:0.06em;}
+  .kpi-strip{
+    display:grid; grid-template-columns:repeat(5,1fr); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden;
+  }
+  .kpi-card{background:var(--panel); padding:20px 16px; transition:background .2s ease;}
+  .kpi-card:hover{background:var(--panel-2);}
+  .kpi-value{font-family:'JetBrains Mono', monospace; font-size:22px; font-weight:600; color:var(--amber);}
+  .kpi-tag{font-size:11px; color:var(--mute); text-transform:uppercase; letter-spacing:0.08em; margin-top:6px;}
+
+  /* SECTION HEADERS */
+  section{padding:64px 0;}
+  .section-head{margin-bottom:36px;}
+  .section-head h2{font-size:30px;}
+  .section-head p{color:var(--mute); margin-top:8px; max-width:580px;}
+
+  /* ABOUT */
+  .about-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:48px; align-items:start;}
+  .about-grid p{color:var(--paper); opacity:0.9; margin-bottom:14px;}
+  .skill-box{background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:22px;}
+  .skill-box h3{font-size:14px; text-transform:uppercase; letter-spacing:0.06em; color:var(--mute); margin-bottom:14px; font-family:'JetBrains Mono', monospace; font-weight:500;}
+  .tag-list{display:flex; flex-wrap:wrap; gap:8px;}
+  .tag{
+    background:var(--panel-2); border:1px solid var(--line); color:var(--teal);
+    font-family:'JetBrains Mono', monospace; font-size:12.5px; padding:6px 12px; border-radius:5px;
+    transition:border-color .18s ease, transform .18s ease; cursor:default;
+  }
+  .tag:hover{border-color:var(--teal); transform:translateY(-1px);}
+
+  /* TIMELINE / TASKS */
+  .task{
+    display:grid; grid-template-columns:64px 1fr; gap:24px;
+    padding:28px 20px; margin:0 -20px; border-top:1px solid var(--line);
+    border-radius:10px; transition:background .2s ease;
+  }
+  .task:last-child{border-bottom:1px solid var(--line);}
+  .task:hover{background:rgba(255,255,255,0.02);}
+  .task:hover .task-num{color:var(--teal);}
+  .task-num{font-family:'JetBrains Mono', monospace; font-size:28px; color:var(--line); font-weight:600; line-height:1; transition:color .25s ease;}
+  .task-head{display:flex; align-items:baseline; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:10px;}
+  .task-head h3{font-size:19px; color:var(--paper);}
+  .task-days{font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--amber); background:rgba(232,163,61,0.1); padding:4px 10px; border-radius:20px; white-space:nowrap;}
+  .task p{color:var(--mute); font-size:14.5px; max-width:640px; margin-bottom:16px;}
+  .task-links{display:flex; gap:10px; flex-wrap:wrap;}
+  .link-pill{
+    font-family:'Inter',sans-serif; font-size:13px; font-weight:500;
+    color:var(--paper); text-decoration:none;
+    border:1px solid var(--line); padding:7px 14px; border-radius:6px;
+    display:inline-flex; align-items:center; gap:6px;
+    transition:border-color .18s ease, color .18s ease, transform .18s ease, box-shadow .18s ease, background .18s ease;
+    cursor:pointer;
+  }
+  .link-pill:hover{border-color:var(--teal); color:var(--teal); transform:translateY(-1px); box-shadow:0 6px 16px rgba(79,189,176,0.15); background:rgba(79,189,176,0.06);}
+  .link-pill:active{transform:translateY(0); box-shadow:none;}
+  .link-pill.disabled{opacity:0.4; pointer-events:none; cursor:not-allowed;}
+
+  /* CAPSTONE FEATURE */
+  .capstone{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:48px; position:relative; overflow:hidden;}
+  .capstone::after{
+    content:""; position:absolute; top:-40%; right:-10%; width:340px; height:340px;
+    background:radial-gradient(circle, rgba(79,189,176,0.12), transparent 70%);
+    pointer-events:none;
+  }
+  .capstone-tag{color:var(--teal); font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase;}
+  .capstone h2{font-size:28px; margin-top:10px; margin-bottom:6px;}
+  .capstone .sub{color:var(--mute); margin-bottom:26px;}
+  .insight-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin:28px 0;}
+  .insight{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:18px; transition:border-color .2s ease, transform .2s ease;}
+  .insight:hover{border-color:var(--teal); transform:translateY(-2px);}
+  .insight .h{color:var(--amber); font-weight:600; font-size:14.5px; margin-bottom:6px; font-family:'Space Grotesk',sans-serif;}
+  .insight .d{color:var(--mute); font-size:13.5px;}
+  blockquote{
+    border-left:3px solid var(--amber); padding:4px 0 4px 20px; margin:28px 0 8px;
+    font-family:'Space Grotesk', sans-serif; font-size:17px; color:var(--paper); font-style:normal; line-height:1.5;
+  }
+
+  /* FOOTER */
+  footer{padding:64px 0 48px; border-top:1px solid var(--line); margin-top:24px;}
+  .footer-grid{display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:24px;}
+  footer h2{font-size:26px; margin-bottom:10px;}
+  footer p{color:var(--mute); max-width:420px;}
+  .footer-note{font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--mute); margin-top:40px; text-align:center;}
+
+  @media (max-width:760px){
+    h1.name{font-size:36px;}
+    h1.name .role{font-size:18px;}
+    .kpi-strip{grid-template-columns:repeat(2,1fr);}
+    .about-grid{grid-template-columns:1fr;}
+    .task{grid-template-columns:40px 1fr;}
+    .capstone{padding:28px;}
+    .insight-grid{grid-template-columns:1fr;}
+    .nav-links{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a href="#" class="brand">Naeema<span>.</span>TN</a>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#capstone">Capstone</a></li>
+      <li><a href="#connect">Connect</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-eyebrow eyebrow">60-DAY DATA ANALYTICS INTERNSHIP · APEXPLANET SOFTWARE PVT. LTD.</div>
+    <h1 class="name">Naeema TN
+      <span class="role">Data Analytics Intern — turning raw data into decisions</span>
+    </h1>
+    <p class="lede">Five tasks, one dataset, one story: from cleaning a thousand messy sales records to shipping an interactive BI dashboard and a stakeholder-ready presentation. This is the trail of work, end to end.</p>
+    <div class="hero-cta">
+      <a href="dashboard.html" class="btn btn-primary">Open Live Dashboard</a>
+      <a href="https://github.com/NaeemaNishad/apexplanet-data-analytics" class="btn btn-ghost" target="_blank" rel="noopener">View Master Repository</a>
+      <a href="#work" class="btn btn-ghost">See the 5 Tasks</a>
+    </div>
+  </div>
+</header>
+
+<section class="kpi-section">
+  <div class="wrap">
+    <div class="kpi-label">// capstone snapshot — sales analytics &amp; business intelligence report</div>
+    <div class="kpi-strip">
+      <div class="kpi-card"><div class="kpi-value">₹139.40M</div><div class="kpi-tag">Total Revenue</div></div>
+      <div class="kpi-card"><div class="kpi-value">992</div><div class="kpi-tag">Orders</div></div>
+      <div class="kpi-card"><div class="kpi-value">947</div><div class="kpi-tag">Customers</div></div>
+      <div class="kpi-card"><div class="kpi-value">5,435</div><div class="kpi-tag">Units Sold</div></div>
+      <div class="kpi-card"><div class="kpi-value">₹140.5K</div><div class="kpi-tag">Avg Order Value</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div>
+        <div class="eyebrow" style="margin-bottom:14px;">About</div>
+        <h2 style="font-size:26px; margin-bottom:16px;">A 60-day sprint through the analytics pipeline</h2>
+        <p>Over the course of this internship at ApexPlanet Software Pvt. Ltd., I worked through a full data analytics lifecycle on a single retail sales dataset — starting with data wrangling and quality checks, moving through exploratory analysis and SQL-driven business questions, into an interactive dashboard build, and finishing with statistical hypothesis testing and a stakeholder presentation.</p>
+        <p>Each stage was documented, recorded, and shipped as a public GitHub repository with an accompanying LinkedIn walkthrough — the links below go straight to the source.</p>
+      </div>
+      <div class="skill-box">
+        <h3>Tools &amp; Skills</h3>
+        <div class="tag-list">
+          <span class="tag">Python</span>
+          <span class="tag">Pandas</span>
+          <span class="tag">SQL</span>
+          <span class="tag">EDA</span>
+          <span class="tag">Data Cleaning</span>
+          <span class="tag">Dashboarding</span>
+          <span class="tag">Hypothesis Testing</span>
+          <span class="tag">Data Storytelling</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">The Process</div>
+      <h2>Five tasks, in order</h2>
+      <p>The internship was structured as a sequential pipeline — each task builds on the last, from raw data to a finished capstone portfolio.</p>
+    </div>
+
+    <div class="task">
+      <div class="task-num">01</div>
+      <div>
+        <div class="task-head">
+          <h3>Data Immersion &amp; Wrangling</h3>
+          <span class="task-days">10 days</span>
+        </div>
+        <p>Acquired and profiled the raw sales dataset, built a data dictionary, identified missing values and inconsistencies, then cleaned and transformed the data into an analysis-ready set.</p>
+        <div class="task-links">
+          <a href="https://github.com/NaeemaNishad/apexplanet-data-analytics/tree/main/task1" class="link-pill" target="_blank" rel="noopener">↗ GitHub Repo</a>
+          <a href="https://www.linkedin.com/posts/naeema-nishad-b8a680359_dataanalytics-python-pandas-ugcPost-7470890643226165248-bjXt/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFlEJpoBhpOrsFi6PrJn86mjdGBp2RBY0hg" class="link-pill" target="_blank" rel="noopener">▶ LinkedIn Walkthrough</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="task">
+      <div class="task-num">02</div>
+      <div>
+        <div class="task-head">
+          <h3>Exploratory Data Analysis &amp; Business Intelligence</h3>
+          <span class="task-days">14 days</span>
+        </div>
+        <p>Ran descriptive statistics and univariate analysis, answered real business questions with SQL queries, explored multivariate relationships, and mocked up a metrics dashboard.</p>
+        <div class="task-links">
+          <a href="https://github.com/NaeemaNishad/apexplanet-data-analytics/tree/main/task2" class="link-pill" target="_blank" rel="noopener">↗ GitHub Repo</a>
+          <a href="https://www.linkedin.com/posts/naeema-nishad-b8a680359_dataanalytics-sql-python-ugcPost-7473818321876926467-Djel/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFlEJpoBhpOrsFi6PrJn86mjdGBp2RBY0hg" class="link-pill" target="_blank" rel="noopener">▶ LinkedIn Walkthrough</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="task">
+      <div class="task-num">03</div>
+      <div>
+        <div class="task-head">
+          <h3>Deep-Dive Analysis &amp; Interactive Dashboarding</h3>
+          <span class="task-days">12 days</span>
+        </div>
+        <p>Defined core KPIs, ran a customer segmentation deep-dive, and built a functional interactive dashboard surfacing the key metrics for live exploration.</p>
+        <div class="task-links">
+          <a href="dashboard.html" class="link-pill" style="border-color:var(--amber); color:var(--amber);">⚡ Open Live Dashboard</a>
+          <a href="https://github.com/NaeemaNishad/apexplanet-data-analytics/tree/main/task3" class="link-pill" target="_blank" rel="noopener">↗ GitHub Repo</a>
+          <a href="https://www.linkedin.com/posts/naeema-nishad-b8a680359_dataanalytics-dataanalysis-businessintelligence-ugcPost-7475471674402926592-8vDv/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFlEJpoBhpOrsFi6PrJn86mjdGBp2RBY0hg" class="link-pill" target="_blank" rel="noopener">▶ LinkedIn Walkthrough</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="task">
+      <div class="task-num">04</div>
+      <div>
+        <div class="task-head">
+          <h3>Data Storytelling &amp; Statistical Validation</h3>
+          <span class="task-days">16 days</span>
+        </div>
+        <p>Synthesized every prior finding into a business narrative and final presentation deck, then validated a business hypothesis with a formal statistical test. This became the capstone report featured below.</p>
+        <div class="task-links">
+          <a href="https://github.com/NaeemaNishad/apexplanet-data-analytics/tree/main/task4" class="link-pill" target="_blank" rel="noopener">↗ GitHub Repo</a>
+          <a href="https://www.linkedin.com/posts/naeema-nishad-b8a680359_dataanalytics-python-statistics-ugcPost-7480896862992994304-PV3e/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFlEJpoBhpOrsFi6PrJn86mjdGBp2RBY0hg" class="link-pill" target="_blank" rel="noopener">▶ LinkedIn Walkthrough</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="task">
+      <div class="task-num">05</div>
+      <div>
+        <div class="task-head">
+          <h3>Capstone Integration &amp; Portfolio Finalization</h3>
+          <span class="task-days">8 days</span>
+        </div>
+        <p>Consolidated all four tasks into a single master repository and this portfolio site — the polished, single point of reference for the full internship.</p>
+        <div class="task-links">
+          <a href="https://github.com/NaeemaNishad/apexplanet-data-analytics" class="link-pill" target="_blank" rel="noopener">↗ Master Repo</a>
+          <span class="link-pill disabled">▶ LinkedIn Walkthrough — coming soon</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="capstone">
+  <div class="wrap">
+    <div class="capstone">
+      <div class="capstone-tag">Featured Capstone — Task 4</div>
+      <h2>Sales Analytics &amp; Business Intelligence Report</h2>
+      <p class="sub">A full-year retail sales dataset — 1,000 transactions, 947 customers, 5 product categories — turned into segmentation insight, category performance, and a set of business recommendations.</p>
+
+      <div class="insight-grid">
+        <div class="insight">
+          <div class="h">Customer Segmentation</div>
+          <div class="d">High-value customers, just one of three segments, drove 65.8% of total revenue — the clearest signal in the dataset for where retention efforts should focus.</div>
+        </div>
+        <div class="insight">
+          <div class="h">Category Performance</div>
+          <div class="d">Electronics led every category at ₹50.78M in revenue, with Electronics and Education together accounting for over 54% of total sales.</div>
+        </div>
+        <div class="insight">
+          <div class="h">Seasonal Trend</div>
+          <div class="d">Monthly revenue peaked in March 2025 at ₹13.06M, with Q4 showing sustained strength — useful signal for inventory and campaign timing.</div>
+        </div>
+        <div class="insight">
+          <div class="h">Business Recommendation</div>
+          <div class="d">Retain high-value customers through loyalty programs, expand Electronics, and apply targeted promotions to lift the underperforming Fashion category.</div>
+        </div>
+      </div>
+
+      <blockquote>"Data-driven decision-making empowers businesses to understand customer behavior, monitor performance, and make informed strategic decisions that drive sustainable growth."</blockquote>
+
+      <div class="hero-cta" style="margin-top:24px;">
+        <a href="https://github.com/NaeemaNishad/apexplanet-data-analytics/tree/main/task4" class="btn btn-primary" target="_blank" rel="noopener">Read Full Report on GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="connect">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="eyebrow" style="margin-bottom:10px;">Get in touch</div>
+        <h2>Let's talk data.</h2>
+        <p>Contact details coming soon — in the meantime, the full body of work is one click away.</p>
+      </div>
+      <div class="hero-cta" style="margin-top:0;">
+        <a href="https://github.com/NaeemaNishad/apexplanet-data-analytics" class="btn btn-ghost" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <div class="footer-note">Built for the ApexPlanet Software Pvt. Ltd. Data Analytics Internship — Task 5 / Capstone Integration</div>
+  </div>
+</footer>
+
+</body>
+</html>
